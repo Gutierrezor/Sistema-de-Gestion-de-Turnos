@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Turno</h1>
+        <form id="registroForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="cedula">Cédula:</label>
+            <input type="text" id="cedula" name="cedula" required>
+            
+            <label for="estudio">Tipo de Estudio:</label>
+            <select id="estudio" name="estudio" required>
+                <option value="Radiografia">Radiografía</option>
+                <option value="Osteodensitometria">Osteodensitometría</option>
+                <option value="Mamografia">Mamografía</option>
+                <option value="Ecografia">Ecografía</option>
+            </select>
+            
+            <button type="submit">Asignar Turno</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/api/turnos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Turno asignado');
+                    event.target.reset();
+                } else {
+                    alert('Error al asignar el turno');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

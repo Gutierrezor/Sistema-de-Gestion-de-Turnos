@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Gestión de Turnos</h1>
+    <h2>Todos los Turnos</h2>
+    <table id="turnosTable">
+        <thead>
+            <tr>
+                <th>Turno</th>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Estudio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se llenarán aquí -->
+        </tbody>
+    </table>
+
+    <button id="downloadExcel">Descargar Turnos</button>
+
+    <script>
+        async function fetchTurnos() {
+            try {
+                const response = await fetch('/api/turnos');
+                const data = await response.json();
+                const turnosTable = document.getElementById('turnosTable').getElementsByTagName('tbody')[0];
+
+                // Limpiar la tabla antes de llenarla
+                turnosTable.innerHTML = '';
+
+                // Añadir los turnos a la tabla
+                data.turnos.forEach(turno => {
+                    const row = turnosTable.insertRow();
+                    row.insertCell(0).textContent = turno.turno;
+                    row.insertCell(1).textContent = turno.nombre;
+                    row.insertCell(2).textContent = turno.cedula;
+                    row.insertCell(3).textContent = turno.estudio;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        document.getElementById('downloadExcel').addEventListener('click', () => {
+            window.location.href = '/api/download-excel';
+        });
+
+        // Cargar los turnos al cargar la página
+        fetchTurnos();
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Últimos 4 Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Últimos 4 Turnos</h1>
+        <table id="ultimosTurnosTable">
+            <thead>
+                <tr>
+                    <th>Turno</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Estudio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los últimos 4 turnos se llenarán aquí con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function loadUltimosTurnos() {
+            fetch('/api/turnos')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#ultimosTurnosTable tbody');
+                    tbody.innerHTML = '';
+                    const turnos = data.turnos.slice(-4); // Obtiene los últimos 4 turnos
+                    turnos.forEach(turno => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${turno.turno}</td>
+                            <td>${turno.nombre}</td>
+                            <td>${turno.cedula}</td>
+                            <td>${turno.estudio}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        loadUltimosTurnos();
+    </script>
+</body>
+</html>
