@@ -12,9 +12,7 @@
         <table id="ultimosTurnosTable">
             <thead>
                 <tr>
-                    <th>Turno</th>
                     <th>Nombre</th>
-                    <th>Cédula</th>
                     <th>Estudio</th>
                 </tr>
             </thead>
@@ -34,9 +32,7 @@
                     turnos.forEach(turno => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${turno.turno}</td>
                             <td>${turno.nombre}</td>
-                            <td>${turno.cedula}</td>
                             <td>${turno.estudio}</td>
                         `;
                         tbody.appendChild(row);

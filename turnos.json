@@ -1,0 +1,10 @@
+{
+  "turnos": [
+    {
+      "turno": "Turno Radiografia 01",
+      "nombre": "julian",
+      "cedula": "1003809",
+      "estudio": "Radiografia"
+    }
+  ]
+}
